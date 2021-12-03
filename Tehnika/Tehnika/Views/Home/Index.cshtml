@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<ul class="nav-links" id="links">
+    <li style="display: inline-block; margin-left: 80px; margin-top:7px;">@Html.ActionLink("Сите категории", "Search/all", "Products")</li>
+    <li style="display:inline">@Html.ActionLink("Преносни компјутери", "Search/laptop", "Products")</li>
+    <li style="display:inline">@Html.ActionLink("Десктоп компјутери", "Search/desktop", "Products")</li>
+    <li style="display:inline">@Html.ActionLink("Мобилни телефони", "Search/phone", "Products")</li>
+    <li style="display:inline">@Html.ActionLink("Бела техника", "Search/white", "Products")</li>
+    <br />
+    <li style="display:inline; margin-left: 200px">@Html.ActionLink("Апарати за домаќинство", "Search/householdappliance", "Products")</li>
+    <li style="display:inline">@Html.ActionLink("Телевизори", "Search/tv", "Products")</li>
+    <li style="display:inline">@Html.ActionLink("Мали апарати", "Search/smallappliance", "Products")</li>
+    <li style="display:inline"><a href="/Products/Search/all"><img src="../../Images/magnifier.png" width="20px"></a> </li>
+</ul>
+
+<img src="../../Images/logo.jpg" width="1100px" />
+
+<a href="/Products/Search/phone"><img src="../../Images/commercial1.jpg" /></a>
+
+<a href="/Products/Search/laptop"><img src="../../Images/commercial2.jpg" /></a>
+
+<a href="/Products/Search/phone"><img src="../../Images/commercial3.jpg" /></a>
+
+<a href="/Products/Search/white"><img src="../../Images/commercial4.jpg" /></a>
+
+<link href="~/script111.css" rel="stylesheet" />
