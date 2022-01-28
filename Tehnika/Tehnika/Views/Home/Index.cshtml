@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Техника - Продавница за техника";
 }
 
 <ul class="nav-links" id="links">
@@ -14,6 +14,11 @@
     <li style="display:inline">@Html.ActionLink("Мали апарати", "Search/smallappliance", "Products")</li>
     <li style="display:inline"><a href="/Products/Search/all"><img src="../../Images/magnifier.png" width="20px"></a> </li>
 </ul>
+@if (User.IsInRole("Administrator"))
+{
+    <br />
+    <a style="display:block" class="btn btn-success text-center" href="/Products/BuyList">Преглед на купените производи</a>
+}
 
 <img src="../../Images/logo.jpg" width="1100px" />
 
@@ -25,4 +30,4 @@
 
 <a href="/Products/Search/white"><img src="../../Images/commercial4.jpg" /></a>
 
-<link href="~/script111.css" rel="stylesheet" />
+<link href="~/script1.css" rel="stylesheet" />

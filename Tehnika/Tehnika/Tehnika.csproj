@@ -182,11 +182,24 @@
     <Compile Include="Migrations\202109181759206_Address.Designer.cs">
       <DependentUpon>202109181759206_Address.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201160344002_AddGrading.cs" />
+    <Compile Include="Migrations\202201160344002_AddGrading.Designer.cs">
+      <DependentUpon>202201160344002_AddGrading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201251624065_comments.cs" />
+    <Compile Include="Migrations\202201251624065_comments.Designer.cs">
+      <DependentUpon>202201251624065_comments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201281232028_addCarts.cs" />
+    <Compile Include="Migrations\202201281232028_addCarts.Designer.cs">
+      <DependentUpon>202201281232028_addCarts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductComment.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -307,7 +320,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="script111.css" />
+    <Content Include="script1.css" />
     <Content Include="script2.css" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -390,6 +403,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="star.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -433,6 +447,8 @@
     <Content Include="Views\Products\ShoppingCart.cshtml" />
     <Content Include="Views\Products\SearchDetailed.cshtml" />
     <Content Include="Views\Products\Buy.cshtml" />
+    <Content Include="Views\Account\AddUserToRole.cshtml" />
+    <Content Include="Views\Products\BuyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -456,6 +472,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109181759206_Address.resx">
       <DependentUpon>202109181759206_Address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201160344002_AddGrading.resx">
+      <DependentUpon>202201160344002_AddGrading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201251624065_comments.resx">
+      <DependentUpon>202201251624065_comments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201281232028_addCarts.resx">
+      <DependentUpon>202201281232028_addCarts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

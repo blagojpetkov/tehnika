@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -15,6 +16,7 @@ namespace Tehnika.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -59,6 +61,31 @@ namespace Tehnika.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+        [Authorize(Roles ="Administrator")]
+        public ActionResult AddUserToRole()
+        {
+            AddToRoleModel model = new AddToRoleModel();
+            List<ApplicationUser> users = db.Users.ToList();
+            model.emails = new List<string>();
+            foreach(ApplicationUser user in users){
+                model.emails.Add(user.Email);
+            }
+            model.roles = new List<string>() { "Administrator", "Moderator", "User" };
+            return View(model);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult AddUserToRole(AddToRoleModel model)
+        {
+            var email = model.Email;
+            var user = UserManager.FindByEmail(email);
+            if (user == null)
+            {
+                throw new HttpException(404, "There is no user with email: " + email);
+            }
+            UserManager.AddToRole(user.Id, model.SelectedRole);
+            return RedirectToAction("Index", "Products");
         }
 
         //
@@ -155,7 +182,7 @@ namespace Tehnika.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //await UserManager.AddToRoleAsync(user.Id, "Administrator");
+                    await UserManager.AddToRoleAsync(user.Id, "User");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

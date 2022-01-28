@@ -77,6 +77,8 @@ C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.WebPages.Deploymen
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.WebPages.dll
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.WebPages.Razor.dll
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\WebGrease.dll
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\EntityFramework.xml
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\EntityFramework.SqlServer.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.Helpers.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.Mvc.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.Optimization.xml
@@ -86,8 +88,6 @@ C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.WebPages.Deploymen
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\System.Web.WebPages.Razor.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Newtonsoft.Json.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Antlr3.Runtime.pdb
-C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\EntityFramework.xml
-C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\EntityFramework.SqlServer.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -101,10 +101,13 @@ C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.Owin.Security.Twitt
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.AssemblyReference.cache
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.InitialCreate.resources
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.Address.resources
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.AddGrading.resources
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.comments.resources
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.addCarts.resources
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.GenerateResource.cache
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.CoreCompileInputs.cache
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.dll
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.pdb
-C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.InitialCreate.resources
-C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.GenerateResource.cache
-C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.Migrations.Address.resources
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.AssemblyReference.cache

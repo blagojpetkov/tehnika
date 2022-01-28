@@ -26,6 +26,12 @@
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Продажни салони", "Showrooms", "Home")</li>
                     <li><a href="/Products/ShoppingCart" style="border:0; padding:0 0 0 2px;"><img style="padding-top: 13px" src="../../Images/shoppingcart/cart.jpg" width="30" /></a></li>
+                    <li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            @Html.ActionLink("Додади улоги", "AddUserToRole", "Account")
+                        }
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

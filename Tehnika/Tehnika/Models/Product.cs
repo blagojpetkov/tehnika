@@ -24,5 +24,11 @@ namespace Tehnika.Models
         [Display(Name = "Категорија")]
         public string Category { get; set; }
 
+        public double Grade { get; set; }
+        public int Graders { get; set; }
+
+        public List<ProductComment> ProductComments { get; set; }
+        public List<ShoppingCart> shoppingCarts { get; set; }
+
     }
 }

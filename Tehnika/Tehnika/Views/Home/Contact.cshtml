@@ -4,6 +4,13 @@
 
 <h3>@ViewBag.Message</h3>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
 <address>
     Улица 1523, 1000 Скопје - Македонија<br />
     <br />
@@ -17,4 +24,103 @@
 </address>
 
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23721.968457454026!2d21.410861999779005!3d41.99499456961847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1354144ac20fc381%3A0xe2a89a562b0da73d!2sCentar%2C%20Skopje%201000!5e0!3m2!1sen!2smk!4v1631206595634!5m2!1sen!2smk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<div  style="display: flex; justify-content: space-between;">
+    <div style="width: 900px; height: 500px; margin-right: 20px;" id="map"></div>
+
+    <div style="margin-left: 20px; width: 500px;" id="information">
+        <p id="distance"></p>
+        <p id="duration"></p>
+    </div>
+</div>
+
+<script>
+
+    var map = L.map('map').setView([41.621, 21.690], 8);
+    const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution })
+    tiles.addTo(map);
+
+    let marker1 = L.marker([42.0043012, 21.4083577]).addTo(map);
+    marker1.on('click', () => {
+        selectedStore = marker1;
+        geolocation();
+    });
+
+    let marker2 = L.marker([41.7369521, 22.1911505]).addTo(map);
+    marker2.on('click', () => {
+        selectedStore = marker2;
+        geolocation();
+    });
+
+    let marker3 = L.marker([41.0230063, 21.3189164]).addTo(map);
+    marker3.on('click', () => {
+        selectedStore = marker3;
+        geolocation();
+    });
+
+    let marker4 = L.marker([41.0221417, 21.3310960]).addTo(map);
+    marker4.on('click', () => {
+        selectedStore = marker4;
+        geolocation();
+    });
+
+
+    let marker5 = L.marker([41.9931370, 20.9623640]).addTo(map);
+    marker5.on('click', () => {
+        selectedStore = marker5;
+        geolocation();
+    });
+
+    let marker6 = L.marker([41.7367383, 22.2034127]).addTo(map);
+    marker6.on('click', () => {
+        selectedStore = marker6;
+        geolocation();
+    });
+
+    let marker7 = L.marker([41.3693879, 21.5145619]).addTo(map);
+    marker7.on('click', () => {
+        selectedStore = marker7;
+        geolocation();
+    });
+
+    let marker8 = L.marker([41.1078977, 20.8087351]).addTo(map);
+    marker8.on('click', () => {
+        selectedStore = marker8;
+        geolocation();
+    });
+
+    let myPosition;
+
+    function geolocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(markPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+
+    let alreadyset = false;
+    function markPosition(position) {
+
+        myPosition = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+        getMapInfo(myPosition, selectedStore);
+    }
+
+    async function getMapInfo(start, end) {
+        console.log("success map info");
+        const url = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248995993511b5947b081e0eedbc69cb402&start=" + start.getLatLng().lng + "," + start.getLatLng().lat + "&end=" + end.getLatLng().lng + "," + end.getLatLng().lat;
+        let info = await fetch(url);
+        let data = await info.json();
+        let points = data.features[0].geometry.coordinates.map(x => x.reverse());
+        L.polyline(points, { color: '#b41238', opacity: 1, weight: 5 }).addTo(map);
+        let distance = data.features[0].properties.summary.distance;
+        let duration = data.features[0].properties.summary.duration;
+        document.getElementById("information").hidden = false;
+        document.getElementById("distance").innerHTML = "Растојанието од вас до избраниот салон изнесува " + (distance / 1000).toFixed(1) + " километри."
+        document.getElementById("duration").innerHTML = "Времето за да стигнете до избраниот салон изнесува " + (duration / 60).toFixed(0) + " минути."
+
+    }
+
+</script>

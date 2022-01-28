@@ -1,0 +1,29 @@
+﻿@using Tehnika.Models
+@model IEnumerable<ShoppingCart>
+@{
+    ViewBag.Title = "Преглед на купени производи";
+}
+
+<h2>Преглед на купени производи</h2>
+
+
+<table class="table">
+    <tr>
+        <th>Корисничко име</th>
+        <th>Адреса</th>
+        <th>Продукти</th>
+    </tr>
+    @foreach(ShoppingCart shoppingCart in Model) {
+<tr>
+    <td>@shoppingCart.username</td>
+    <td>@shoppingCart.address</td>
+        @foreach (Product p in shoppingCart.products)
+        {
+            <td>
+                @p.Name
+            </td>
+        }
+    </tr>
+    }
+</table>
+

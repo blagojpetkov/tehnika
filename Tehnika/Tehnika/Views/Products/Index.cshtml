@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Tehnika.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Техника.мк";
 }
 
 <h2>Производи</h2>
@@ -17,9 +17,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.ImageURL)
             </th>
@@ -32,9 +30,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Warranty)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -47,9 +43,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
+
                 <td>
                     <a href="/Products/SearchDetailed/@item.Id"><img src="@item.ImageURL" width="300" height="300" /></a>
                 </td>
@@ -62,14 +56,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Warranty) дена
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
                     {
                         @Html.ActionLink("Измени", "Edit", new { id = item.Id })
                     }
+
                     @Html.ActionLink("Детали", "Details", new { id = item.Id })
 
                     @if (User.IsInRole("Administrator"))

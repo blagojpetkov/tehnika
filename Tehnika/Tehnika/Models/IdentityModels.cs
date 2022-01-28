@@ -33,6 +33,8 @@ namespace Tehnika.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<Tehnika.Models.Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingCart> Carts  { get; set; }
+        
     }
 }

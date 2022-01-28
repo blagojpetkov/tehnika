@@ -13,7 +13,7 @@ namespace Tehnika.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        static ShoppingCart cart = new ShoppingCart();
+        //static ShoppingCart cart = new ShoppingCart();
 
         // GET: Products
         
@@ -25,23 +25,56 @@ namespace Tehnika.Controllers
         [Authorize]
         public ActionResult Buy()
         {
+            string username = User.Identity.Name;
+            ApplicationUser user = db.Users.Single(x => x.UserName.Equals(username));
+            
+            ShoppingCart cart = (ShoppingCart)Session["cart"];
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                Session["cart"] = cart;
+            }
+
+            ShoppingCart databaseCart = new ShoppingCart();
+            databaseCart.address = user.Address;
+            databaseCart.username = user.UserName;
+            foreach(Product p in cart.products)
+            {
+                databaseCart.products.Add(db.Products.Single(x => x.Name.Equals(p.Name)));
+            }
+            db.Carts.Add(databaseCart);
+            db.SaveChanges();
             cart.products.Clear();
             return View();
         }
 
         public ActionResult ShoppingCart()
         {
-            //cart.products = new List<Product> { new Product { Id = 2222, Category = "asdf", Description = "asdf", Name = "Ime", Price = 200, Discount = 12, ImageURL = "asdf", Warranty = 22222 } };
+            ShoppingCart cart = (ShoppingCart) Session["cart"];
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                Session["cart"] = cart;
+            }
+
             return View(cart.products);
         }
 
         public ActionResult DeleteCart(int id)
         {
-            foreach(Product p in cart.products.ToList())
+            ShoppingCart cart = (ShoppingCart)Session["cart"];
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                Session["cart"] = cart;
+            }
+
+            foreach (Product p in cart.products.ToList())
             {
                 if (p.Id.Equals(id))
                 {
                     cart.products.Remove(p);
+                    Session["cart"] = cart;
                 }
             }
             return View("ShoppingCart", cart.products);
@@ -66,7 +99,7 @@ namespace Tehnika.Controllers
         public ActionResult SearchDetailed(string id)
         {
             
-            foreach (Product p in db.Products.ToList())
+            foreach (Product p in db.Products.Include(x=>x.ProductComments.Select(productcomment=>productcomment.user)).ToList())
             {
                 if (p.Id.Equals(int.Parse(id)))
                 {
@@ -79,11 +112,19 @@ namespace Tehnika.Controllers
 
         public ActionResult AddToCart(string id)
         {
+            ShoppingCart cart = (ShoppingCart)Session["cart"];
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                Session["cart"] = cart;
+            }
+
             foreach (Product p in db.Products.ToList())
             {
                 if (p.Id.Equals(int.Parse(id)))
                 {
                     cart.products.Add(p);
+                    Session["cart"] = cart;
                     return View("Index", db.Products.ToList());
                 }
             }
@@ -121,6 +162,9 @@ namespace Tehnika.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.ProductComments = new List<ProductComment>();
+                product.Grade = 0;
+                product.Graders = 0;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -130,7 +174,7 @@ namespace Tehnika.Controllers
         }
 
         // GET: Products/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator,Moderator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -150,6 +194,7 @@ namespace Tehnika.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Moderator")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,ImageURL,Price,Discount,Warranty,Category")] Product product)
         {
             if (ModelState.IsValid)
@@ -164,10 +209,39 @@ namespace Tehnika.Controllers
         // GET: Products/Delete/5
         public ActionResult Delete(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = db.Products.Include(x=>x.ProductComments).FirstOrDefault(p => p.Id == id);
+            product.ProductComments.Clear();
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Grade(int id, int grade)
+        {
+            Product product = db.Products.Find(id);
+            product.Grade = (product.Grade * product.Graders + grade) / (product.Graders + 1);
+            product.Graders++;
+            db.SaveChanges();
+            return RedirectToAction("SearchDetailed", new { id = id });
+        }
+
+        public ActionResult AddComment(int id, string comment)
+        {
+            string username = User.Identity.Name;
+            ApplicationUser user = db.Users.Single(x=>x.UserName.Equals(username));
+            Product product = db.Products.Find(id);
+            if (product.ProductComments == null)
+                product.ProductComments = new List<ProductComment>();
+            product.ProductComments.Add(new ProductComment() { comment = comment, user = user });
+            db.SaveChanges();
+            return RedirectToAction("SearchDetailed", new { id = id });
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult BuyList()
+        {
+            List<ShoppingCart> carts = db.Carts.Include(x=>x.products).ToList();
+            return View(carts);
         }
 
         protected override void Dispose(bool disposing)

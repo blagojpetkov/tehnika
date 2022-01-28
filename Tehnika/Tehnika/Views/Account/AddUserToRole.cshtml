@@ -1,0 +1,23 @@
+﻿@model Tehnika.Models.AddToRoleModel
+@{
+    ViewBag.Title = "AddUserToRole";
+}
+
+<h2>Додади улога на соодветниот корисник</h2>
+<br />
+<h4>Администратор - целосна функционалност</h4>
+<h4>Модератор - Смее да изменува, не може да креира нови продукти ниту да брише</h4>
+<h4>Корисник - Не може да изменува, додава, брише продукти</h4>
+<br />
+
+@using (Html.BeginForm("AddUserToRole", "Account"))
+{
+                <div class="form-group">
+                    @Html.DropDownListFor(x => x.Email, new SelectList(Model.emails), new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.DropDownListFor(x=>x.SelectedRole, new SelectList(Model.roles), new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-default">Save</button>
+            }
+

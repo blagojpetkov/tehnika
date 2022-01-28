@@ -1,78 +1,137 @@
 ﻿@model Tehnika.Models.Product
 
 @{
-    ViewBag.Title = "SearchDetailed";
+    ViewBag.Title = "Детален поглед";
 }
 
-<h2>SearchDetailed</h2>
+<h2>Детален поглед на производот</h2>
+<div id="container">
+    <div id="left">
+        <img src="@Model.ImageURL" height="500" />
+    </div>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div id="right">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <br />
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <br />
+            <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price) денари
+            </dd>
+            <br />
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Discount)
+            </dt>
 
-        <dd>
-            <img src="@Model.ImageURL" width="400" />
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Discount) %
+            </dd>
+            <br />
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Warranty)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Warranty) дена
+            </dd>
+            <br />
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price) денари
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Discount) %
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Warranty)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Warranty) дена
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
 </div>
-<p>
+<hr />
+    <div>
     @if (User.IsInRole("Administrator"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        <a style="color: black; font-weight: bold" href="@Url.Action("Edit", "Products", new { id = @Model.Id })">Измени го производот</a>
     }|
-@Html.ActionLink("Back to List", "Index") |
-<a style="color: black; font-weight: bold" href="/Products/AddToCart/@Model.Id">Додај во кошничка</a>
-</p>
+    <a style="color: black; font-weight: bold" href="/Products">Врати се назад</a> |
+    <a style="color: black; font-weight: bold" href="/Products/AddToCart/@Model.Id">Додади во кошничка</a>
+    </div>
+<hr />
+    <br />
+    <div style="font-size: 15px; font-weight: bold">Оцена: @String.Format("{0:0.00}", Model.Grade) според @Model.Graders оценувач/и</div>
+    @if (Request.IsAuthenticated)
+    {
+        <div id="grades">
+            <a href=@Url.Action("grade", "products", new { id = @Model.Id, grade = 1 })><img title="Оцена 1" id="1" style="width: 50px;" src="/star.png"></a>
+            <a href=@Url.Action("grade", "products", new { id = @Model.Id, grade = 2 })><img title="Оцена 2" id="2" style="width: 50px;" src="/star.png"></a>
+            <a href=@Url.Action("grade", "products", new { id = @Model.Id, grade = 3 })><img title="Оцена 3" id="3" style="width: 50px;" src="/star.png"></a>
+            <a href=@Url.Action("grade", "products", new { id = @Model.Id, grade = 4 })><img title="Оцена 4" id="4" style="width: 50px;" src="/star.png"></a>
+            <a href=@Url.Action("grade", "products", new { id = @Model.Id, grade = 5 })><img title="Оцена 5" id="5" style="width: 50px;" src="/star.png"></a>
+            <p class="text-danger">Внеси оцена за производот избирајќи една од ѕвездите</p>
+        </div>
+        <hr />
+        <br /><br />
+        using (Html.BeginForm("AddComment", "Products", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <label>Овде можете да внесете коментар за производот</label><br />
+            @Html.TextArea("comment", "Внеси коментар за производот")
+            <input name="id" type="hidden" value=@Model.Id />
+            <br />
+            <button type="submit">Зачувај коментар</button>
+        }
+    }
+    <hr />
+    <br />
+    @if (Model.ProductComments.Count > 0)
+    {
+        <h3>Коментари од други корисници</h3>
+    }
+    @foreach (var comment in Model.ProductComments)
+    {
+    <div style="font-weight: bold; padding: 20px; margin: 10px; background-color: grey; border: 4px solid black; border-radius: 5px;">
+    <p>Коментар на @comment.user.UserName :</p>
+    <p>@comment.comment</p>
+    </div>
+    }
+
+<style>
+    
+    #container{
+        display: flex;
+        justify-content: space-between;
+    }
+    #right{
+        height: 500px;
+        display: flex;
+        justify-content: left;
+        margin-right: 200px;
+    }
+    dl{
+        font-size: 16px;
+    }
+    
+
+
+</style>
