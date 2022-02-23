@@ -1,0 +1,30 @@
+﻿@using Tehnika.Models
+@model ShoppingCart
+@{
+    ViewBag.Title = "viewCart";
+}
+
+<h2>Преглед на производи во корисничка кошничка за корисникот: @Model.username</h2>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>Име на продуктот</th>
+            <th>Цена на продуктот</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product p in @Model.products)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Price денари</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+<script>
+    $("#table").DataTable();
+</script>
+    }
+

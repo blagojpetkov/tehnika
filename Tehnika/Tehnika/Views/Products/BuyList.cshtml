@@ -17,13 +17,9 @@
 <tr>
     <td>@shoppingCart.username</td>
     <td>@shoppingCart.address</td>
-        @foreach (Product p in shoppingCart.products)
-        {
-            <td>
-                @p.Name
-            </td>
-        }
-    </tr>
+    <td><a class="btn btn-success" href="/products/viewcart/@shoppingCart.Id">Прегледајте продукти</a></td>
+    
+</tr>
     }
 </table>
 

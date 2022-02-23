@@ -111,3 +111,4 @@ C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.CoreComp
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.dll
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.pdb
 C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.AssemblyReference.cache
+C:\Users\B5\source\repos\b5\it\Tehnika\Tehnika\obj\Debug\Tehnika.csproj.CopyComplete

@@ -449,6 +449,7 @@
     <Content Include="Views\Products\Buy.cshtml" />
     <Content Include="Views\Account\AddUserToRole.cshtml" />
     <Content Include="Views\Products\BuyList.cshtml" />
+    <Content Include="Views\Products\viewCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

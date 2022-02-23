@@ -244,6 +244,13 @@ namespace Tehnika.Controllers
             return View(carts);
         }
 
+        public ActionResult viewCart(int id)
+        {
+            ShoppingCart cart = db.Carts.Include(x=>x.products).Single(x=>x.Id == id);
+            return View(cart);
+
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
